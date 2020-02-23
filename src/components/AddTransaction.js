@@ -1,19 +1,38 @@
 import React from "react";
+import { connect } from "react-redux";
+import { handleChange, addTransaction } from "../redux/dataActions";
 
-const AddTransaction = ({ name, amount, handleNameChange, handleAmountChange, addItem }) => {
+const AddTransaction = ({
+  name,
+  amount,
+  handleChange,
+  addTransaction,
+  rate,
+  updateLocalStorage
+}) => {
+  const onSubmit = e => {
+    e.preventDefault();
+    const newTransaction = {
+      id: Math.floor(Math.random() * 100000000),
+      name,
+      amount: +amount,
+      pln: +(amount * rate).toFixed(2)
+    };
+    addTransaction(newTransaction);
+    updateLocalStorage();
+  };
+
   return (
-    <div>
-      <form>
+    <>
+      <form onSubmit={onSubmit}>
         <div className="row">
           <div className="col">
             <input
               id="transactionName"
-              name="transactionName"
               type="text"
               className="form-control"
               placeholder="Nazwa transakcji"
-              value={name}
-              onChange={handleNameChange}
+              onChange={e => handleChange(e.target.value, "name")}
             />
           </div>
           <div className="col">
@@ -22,26 +41,26 @@ const AddTransaction = ({ name, amount, handleNameChange, handleAmountChange, ad
               type="number"
               className="form-control"
               placeholder="EUR"
-              value={amount}
-              onChange={handleAmountChange}
+              onChange={e => handleChange(e.target.value, "amount")}
               min="0"
             />
           </div>
         </div>
         <div className="row">
           <div className="col text-center">
-            <button
-              className="btn btn-primary mt-3 mb-3"
-              onClick={addItem}
-              disabled={!(name && amount)}
-            >
+            <button className="btn btn-primary mt-3 mb-3" disabled={!(name && amount)}>
               Dodaj transakcje
             </button>
           </div>
         </div>
       </form>
-    </div>
+    </>
   );
 };
 
-export default AddTransaction;
+const mapStateToProps = state => ({
+  name: state.name,
+  amount: state.amount
+});
+
+export default connect(mapStateToProps, { addTransaction, handleChange })(AddTransaction);

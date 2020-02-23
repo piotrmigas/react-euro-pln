@@ -9,17 +9,24 @@ export const getRate = () => dispatch => {
   });
 };
 
-export const handleNameChange = e => dispatch => {
+export const handleChange = (value, field) => {
+  return {
+    type: "HANDLE_CHANGE",
+    payload: value,
+    field
+  };
+};
+
+export const deleteTransaction = id => dispatch => {
   dispatch({
-    type: "HANDLE_NAME",
-    payload: e.target.value
+    type: "DELETE_TRANSACTION",
+    payload: id
   });
 };
 
-export const handleAmountChange = e => dispatch => {
-  let amountVal = e.target.value;
+export const addTransaction = transaction => dispatch => {
   dispatch({
-    type: "HANDLE_AMOUNT",
-    payload: +amountVal
+    type: "ADD_TRANSACTION",
+    payload: transaction
   });
 };

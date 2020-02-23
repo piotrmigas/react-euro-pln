@@ -1,6 +1,6 @@
 const initialState = {
   name: "",
-  amount: ""
+  amount: 0
 };
 
 export default function(state = initialState, action) {
@@ -10,16 +10,18 @@ export default function(state = initialState, action) {
         ...state,
         rate: action.payload
       };
-    case "HANDLE_NAME":
+    case "DELETE_TRANSACTION":
       return {
         ...state,
-        name: action.payload
+        transactions: state.transactions.filter(transaction => transaction.id !== action.payload)
       };
-    case "HANDLE_AMOUNT":
+    case "ADD_TRANSACTION":
       return {
         ...state,
-        amount: action.payload
+        transactions: [action.payload, ...state.transactions]
       };
+    case "HANDLE_CHANGE":
+      return { ...state, [action.field]: action.payload };
     default:
       return state;
   }
