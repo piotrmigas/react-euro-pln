@@ -2,14 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { handleChange, addTransaction } from "../redux/dataActions";
 
-const AddTransaction = ({
-  name,
-  amount,
-  handleChange,
-  addTransaction,
-  rate,
-  updateLocalStorage
-}) => {
+const AddTransaction = ({ name, amount, handleChange, addTransaction, rate }) => {
   const onSubmit = e => {
     e.preventDefault();
     const newTransaction = {
@@ -19,7 +12,6 @@ const AddTransaction = ({
       pln: +(amount * rate).toFixed(2)
     };
     addTransaction(newTransaction);
-    updateLocalStorage();
   };
 
   return (

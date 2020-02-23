@@ -5,7 +5,7 @@ import { getRate } from "./redux/dataActions";
 import AddTransaction from "./components/AddTransaction";
 import TransactionList from "./components/TransactionList";
 
-const App = ({ getRate, transactions, rate }) => {
+const App = ({ getRate, rate }) => {
   useEffect(() => {
     getRate();
   }, [getRate]);

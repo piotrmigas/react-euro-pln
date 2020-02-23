@@ -10,12 +10,6 @@ let initialState = {
   transactions: []
 };
 
-// const storedTransactions = localStorage.getItem("transactions");
-
-// if (storedTransactions) {
-//   initialState = JSON.parse(storedTransactions);
-// }
-
 const store = createStore(
   dataReducer,
   initialState,
@@ -27,7 +21,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <App transactions={initialState} />
+    <App />
   </Provider>,
   document.getElementById("root")
 );
