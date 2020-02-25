@@ -35,6 +35,7 @@ const AddTransaction = ({ name, amount, handleChange, addTransaction, rate }) =>
               placeholder="EUR"
               onChange={e => handleChange(e.target.value, "amount")}
               min="0"
+              step="0.01"
             />
           </div>
         </div>
