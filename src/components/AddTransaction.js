@@ -12,6 +12,7 @@ const AddTransaction = ({ name, amount, handleChange, addTransaction, rate }) =>
       pln: +(amount * rate).toFixed(2)
     };
     addTransaction(newTransaction);
+    e.target.reset();
   };
 
   return (
