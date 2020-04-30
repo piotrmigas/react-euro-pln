@@ -8,7 +8,7 @@ import dataReducer from "./redux/dataReducer";
 import throttle from "lodash/throttle";
 
 let initialState = {
-  transactions: []
+  transactions: [],
 };
 
 const persistedState = localStorage.getItem("transactions");
@@ -21,7 +21,9 @@ const store = createStore(
   initialState,
   compose(
     applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    window.__REDUX_DEVTOOLS_EXTENSION__
+      ? window.__REDUX_DEVTOOLS_EXTENSION__()
+      : (f) => f
   )
 );
 
