@@ -1,14 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getRate } from "./redux/dataActions";
 import AddTransaction from "./components/AddTransaction";
 import TransactionList from "./components/TransactionList";
 
-const App = ({ getRate, rate }) => {
-  useEffect(() => {
-    getRate();
-  }, [getRate]);
+const App = () => {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getRate());
+  }, [dispatch]);
+
+  const rate = useSelector((state) => state.rate);
 
   return (
     <div className="container">
@@ -19,8 +23,4 @@ const App = ({ getRate, rate }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  rate: state.rate
-});
-
-export default connect(mapStateToProps, { getRate })(App);
+export default App;

@@ -2,25 +2,31 @@ import React from "react";
 import Transaction from "./Transaction";
 import MaxTransaction from "./MaxTransaction";
 import Sum from "./Sum";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-const TransactionList = ({ transactions }) => {
-  const listItems = transactions.map(transaction => (
+const TransactionList = () => {
+  const transactions = useSelector((state) => state.transactions);
+
+  const listItems = transactions.map((transaction) => (
     <Transaction key={transaction.id} transaction={transaction} />
   ));
 
   const maxEuro = Math.max.apply(
     Math,
-    listItems.map(item => item.props.transaction.amount)
+    listItems.map((item) => item.props.transaction.amount)
   );
 
   const maxPln = Math.max.apply(
     Math,
-    listItems.map(item => item.props.transaction.pln)
+    listItems.map((item) => item.props.transaction.pln)
   );
 
-  const maxValueObject = listItems.filter(item => item.props.transaction.amount === maxEuro);
-  const maxValueNameArr = maxValueObject.map(item => item.props.transaction.name);
+  const maxValueObject = listItems.filter(
+    (item) => item.props.transaction.amount === maxEuro
+  );
+  const maxValueNameArr = maxValueObject.map(
+    (item) => item.props.transaction.name
+  );
   const maxName = maxValueNameArr.join(", ");
 
   function sumProperty(arr, type) {
@@ -47,8 +53,4 @@ const TransactionList = ({ transactions }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  transactions: state.transactions
-});
-
-export default connect(mapStateToProps)(TransactionList);
+export default TransactionList;
