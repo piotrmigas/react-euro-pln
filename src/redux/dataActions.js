@@ -1,32 +1,38 @@
-import axios from "axios";
-
-export const getRate = () => dispatch => {
-  axios.get("https://api.exchangeratesapi.io/latest?base=EUR").then(res => {
+export const getRate = () => async (dispatch) => {
+  try {
+    const res = await fetch("https://api.exchangeratesapi.io/latest?base=EUR");
+    const data = await res.json();
     dispatch({
       type: "GET_RATE",
-      payload: res.data.rates.PLN
+      payload: data.rates.PLN,
     });
-  });
+  } catch (err) {
+    dispatch({
+      type: "GET_RATE_FAILURE",
+      payload: err,
+      error: true,
+    });
+  }
 };
 
 export const handleChange = (value, field) => {
   return {
     type: "HANDLE_CHANGE",
     payload: value,
-    field
+    field,
   };
 };
 
-export const deleteTransaction = id => dispatch => {
+export const deleteTransaction = (id) => (dispatch) => {
   dispatch({
     type: "DELETE_TRANSACTION",
-    payload: id
+    payload: id,
   });
 };
 
-export const addTransaction = transaction => dispatch => {
+export const addTransaction = (transaction) => (dispatch) => {
   dispatch({
     type: "ADD_TRANSACTION",
-    payload: transaction
+    payload: transaction,
   });
 };
