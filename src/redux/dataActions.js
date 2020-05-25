@@ -6,12 +6,8 @@ export const getRate = () => async (dispatch) => {
       type: "GET_RATE",
       payload: data.rates.PLN,
     });
-  } catch (err) {
-    dispatch({
-      type: "GET_RATE_FAILURE",
-      payload: err,
-      error: true,
-    });
+  } catch (e) {
+    return null;
   }
 };
 
